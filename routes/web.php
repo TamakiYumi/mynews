@@ -15,27 +15,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//<課題３>「http://XXXXXX.jp/XXX というアクセスが来たときに、 AAAControllerのbbbというAction に渡すRoutingの設定」を書いてみてください。
-
-Route::get('XXX','AAAController@bbb');
-
-
-
-/*【応用】 前章でAdmin/ProfileControllerを作成し、add Action, edit Actionを追加しました。
-web.phpを編集して、admin/profile/create にアクセスしたら ProfileController の add Action に、
-admin/profile/edit にアクセスしたら ProfileController の edit Action に割り当てるように設定してください。*/
-
-Route::group(['prefix' => 'admin'],function(){
-    Route::get('news/create', 'Admin\NewsController@add');
-    Route::get('profile/create', 'Admin\ProfileController@add');
-    Route::get('profile/edit', 'Admin\ProfileController@edit');
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'],function(){
+    Route::get('news/create', 'Admin\NewsController@add')->middleware('auth');
+    //PHP｜Laravel 12 ユーザー認証 課題２・３(->middleware('auth'))を追記
+    Route::get('profile/create', 'Admin\ProfileController@add')->middleware('auth');
+    Route::get('profile/edit', 'Admin\ProfileController@edit')->middleware('auth');
+     //Laravel１３のRoutingを編集の追記分
+    Route::post('news/create', 'Admin\NewsController@create'); # 追記部分
+    //Laravel13  ニュース投稿画面を作成しよう  課題３
+    Route::post('profile/create','Admin\ProfileController@create');
+    //Laravel１３   課題６
+    Route::post('profile/edit','Admin\ProfileController@update');
 });
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('news/create', 'Admin\NewsController@add')->middleware('auth');
-    Route::get('profile/create', 'Admin\ProfileController@add')->middleware('auth');
-     Route::get('profile/edit', 'Admin\ProfileController@edit')->middleware('auth');
-});
