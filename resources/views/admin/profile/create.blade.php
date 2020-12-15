@@ -10,7 +10,7 @@
                      
                     @if (count($errors) > 0)
                         <ul>
-                            @foreach($errors->all() as $e)
+                            @foreach($errors->all() as $e)　　// ← Laravel14 課題６の確認
                                 <li>{{ $e }}</li>
                             @endforeach
                         </ul>
