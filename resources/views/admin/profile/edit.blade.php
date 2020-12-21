@@ -1,4 +1,4 @@
-@extends('layouts.admin')  //←layouts/profileを読み込む
+@extends('layouts.admin')
 @section('title', 'プロフィールの編集')
 
 @section('content')

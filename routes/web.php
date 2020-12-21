@@ -16,20 +16,23 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'],function(){
-    Route::get('news', 'Admin\NewsController@index'); //←Laravel 15 追記分
-    Route::post('news/create', 'Admin\NewsController@create'); # 追記部分
-    Route::get('news/edit', 'Admin\NewsController@edit'); // Laravel 16 編集を追記
-    Route::post('news/edit', 'Admin\NewsController@update'); // Laravel 16 更新を追記
-    Route::get('news/delete', 'Admin\NewsController@delete'); //Laravel 16 削除を追記
+    Route::get('news', 'Admin\NewsController@index');
+    Route::get('news/create', 'Admin\NewsController@add');
+    Route::post('news/create', 'Admin\NewsController@create');
+    Route::get('news/edit', 'Admin\NewsController@edit');
+    Route::post('news/edit', 'Admin\NewsController@update');
+    Route::get('news/delete', 'Admin\NewsController@delete');
     
     Route::get('profile', 'Admin\ProfileController@index');
-    Route::get('profile/create', 'Admin\ProfileController@add'); //Laravel13  ニュース投稿画面を作成しよう  課題３
+    Route::get('profile/create', 'Admin\ProfileController@add');
     Route::post('profile/create','Admin\ProfileController@create');
     Route::get('profile/edit', 'Admin\ProfileController@edit');
-    Route::post('profile/edit','Admin\ProfileController@update');   //Laravel１３   課題６
+    Route::post('profile/edit','Admin\ProfileController@update');
     Route::get('profile/delete', 'Admin\ProfileController@delete');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'NewsController@index');
+Route::get(' /profile','ProfileController@index');
