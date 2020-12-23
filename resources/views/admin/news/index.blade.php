@@ -33,7 +33,7 @@
                             <tr>
                                 <th width="10%">ID</th>
                                 <th width="20%">タイトル</th>
-                                <th width="50%">本文</th>
+                                <th width="60%">本文</th>
                                 <th width="10%">操作</th>
                             </tr>
                         </thead>
