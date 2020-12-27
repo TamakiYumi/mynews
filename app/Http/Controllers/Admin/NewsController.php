@@ -16,7 +16,6 @@ class NewsController extends Controller
         return view('admin.news.create');
     }
     
-    
     public function index(Request $request)
     {
         $cond_title = $request->cond_title;
@@ -35,9 +34,11 @@ class NewsController extends Controller
         $this->validate($request, News::$rules);
         $news = new News;
         $form = $request->all();
-        
+
+        $form['image'] = $request->file('image');
+
         if (isset($form['image'])) {
-            $path = Storage::disk('s3')->putFile('/',$form['image'],'public');
+            $path = Storage::disk('s3')->putFile('tamaki',$form['image'],'public');
             $news->image_path = Storage::disk('s3')->url($path);
         } else {
             $news->image_path = null;
